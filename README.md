@@ -52,21 +52,21 @@ Our analysis targets Spotify chart data (2017–2023). The repository currently 
 3. Ensure paths to CSVs in each notebook match your filesystem.
 
 ## Run Order (Notebooks)
-The notebooks are numbered to suggest a logical pipeline. Depending on whether you start from raw or processed data, you may begin at different points.
+The notebooks below reflect the actual filenames in this repository (the previous README list had off‑by‑one numbering and a missing/nonexistent `1_eda.ipynb`). Run them in order for a reproducible pipeline:
 
-1. `1_eda.ipynb` — Exploratory Data Analysis of raw/initial data; sanity checks and basic distributions.
-2. `2_outlier_loudness.ipynb` — Detect outliers (e.g., loudness) and apply data quality fixes.
-3. `3_duplicated.ipynb` — Identify and resolve duplicate records.
-4. `4_datetime.ipynb` — Parse dates, normalize time fields, and build temporal features.
-5. `5_loudness_normalization.ipynb` — Normalize loudness and verify consistency across subsets.
-6. `6_EDA.ipynb` — Extended EDA on aggregated and split datasets (duration buckets, best-rank distribution, release timing, artist frequency, audio outliers/boxplots, correlations, and scatterplots).
-7. `7_1_Artist_Collabs_Calcu.ipynb` — Compute artist-level statistics (song_count, avg_rank, best_rank) and collaborator features from training split; create lookup dictionaries.
-8. `7_2_Artist_Collabs_Calcu_test.ipynb` — Build combined train+val lookups for test; save pickles (artist stats, top collaborators, popularity, global mean).
-9. `8_1_Feature_Engineering.ipynb` — Construct feature sets (audio + reputation + temporal), merge lookups, and produce ML-ready tables.
-10. `8_2_Feature_Engineering_test.ipynb` — Validate engineered features on hold-out splits; ensure schema integrity.
-11. `9_Preprocessing_D_Reduction.ipynb` — Apply preprocessing (scaling/encoding) and dimensionality reduction (e.g., PCA) where appropriate.
-12. `10_Model_Tuning_Test.ipynb` — Train/tune Random Forest, XGBoost, and NN variants with temporal splits; evaluate and compare metrics.
-13. `11_cluster.ipynb` — (Suppliment Task) Perform clustering analyses to explore feature-space structure and support EDA conclusions.
+1. `1_outlier_loudness.ipynb` — Detect and correct loudness outliers; adjust extreme values.
+2. `2_duplicated.ipynb` — Identify and remove duplicate rows (rank/title/date) while preserving distinct releases.
+3. `3_datetime.ipynb` — Convert date strings to `datetime` and persist cleaned timestamps.
+4. `4_loudness_normalization.ipynb` — Min‑max normalize loudness (after outlier handling) and save cleaned data.
+5. `5_split_data.ipynb` — Temporal train/val/test split; aggregate per‑song performance; assign popularity labels; merge audio features.
+6. `6_EDA.ipynb` — Extended EDA on aggregated & split datasets (distributions, timing, artist frequency, correlations, audio feature checks).
+7. `7_1_Artist_Collabs_Calcu.ipynb` — Compute artist statistics (song counts, avg/best rank) & collaborator features from training split.
+8. `7_2_Artist_Collabs_Calcu_test.ipynb` — Build train+val lookup artifacts for test evaluation; persist pickles.
+9. `8_1_Feature_Engineering.ipynb` — Assemble ML feature tables (audio + reputation + temporal) and merge lookups.
+10. `8_2_Feature_Engineering _test.ipynb` — Validate engineered features on hold‑out splits; ensure schema consistency.
+11. `9_Preprocessing_D_Reduction.ipynb` — Perform preprocessing (scaling/encoding) and dimensionality reduction (e.g., PCA).
+12. `10_Model_Tuning_Test.ipynb` — Train/tune models (RF, XGBoost, NN) using temporal splits; compare metrics.
+13. `11_cluster.ipynb` — Clustering analyses to explore feature‑space structure and support EDA conclusions.
 
 Notes:
 - The training notebooks implement temporal train/test splits to avoid leakage. Ensure date-based splits align with the target prediction horizon.
@@ -88,36 +88,35 @@ If you encounter version-related differences, try using the exact versions liste
 ## File Structure (overview)
 ```
 .
-├── 1_eda.ipynb
-├── 2_outlier_loudness.ipynb
-├── 3_duplicated.ipynb
-├── 4_datetime.ipynb
-├── 5_loudness_normalization.ipynb
+├── 1_outlier_loudness.ipynb
+├── 2_duplicated.ipynb
+├── 3_datetime.ipynb
+├── 4_loudness_normalization.ipynb
+├── 5_split_data.ipynb
 ├── 6_EDA.ipynb
 ├── 7_1_Artist_Collabs_Calcu.ipynb
 ├── 7_2_Artist_Collabs_Calcu_test.ipynb
 ├── 8_1_Feature_Engineering.ipynb
-├── 8_2_Feature_Engineering_test.ipynb
+├── 8_2_Feature_Engineering _test.ipynb
 ├── 9_Preprocessing_D_Reduction.ipynb
 ├── 10_Model_Tuning_Test.ipynb
 ├── 11_cluster.ipynb
-
 ```
 
 ## Notebook Summaries
-- `1_eda.ipynb`: Initial EDA, distributions, missingness, and basic correlations.
-- `2_outlier_loudness.ipynb`: Detects/handles outliers (esp. loudness) and normalizes problematic features.
-- `3_duplicated.ipynb`: Identifies duplicate tracks/rows and resolves them.
-- `4_datetime.ipynb`: Parses dates, creates temporal indices, and builds time-based features.
-- `5_loudness_normalization.ipynb`: Normalizes loudness and verifies consistency across time/genres.
-- `6_EDA.ipynb`: Extended EDA using aggregated and split datasets (train/val/test); includes duration buckets, best-rank distribution, release timing (holiday/day-of-week), artist frequency analyses, audio feature outlier checks and boxplots, and correlation/scatter visuals.
-- `7_1_Artist_Collabs_Calcu.ipynb`: Extracts artist appearances, computes artist statistics (song_count, avg_rank, best_rank), and builds lookup dictionaries.
-- `7_2_Artist_Collabs_Calcu_test.ipynb`: Combines train+val for test-time lookups; saves pickles with artist stats, top collaborators, popularity, and global mean.
-- `8_1_Feature_Engineering.ipynb`: Constructs ML feature tables from audio features, artist reputation metrics, and temporal features.
-- `8_2_Feature_Engineering_test.ipynb`: Validates feature engineering on hold-out splits, checks schema and integrity before modeling.
-- `9_Preprocessing_D_Reduction.ipynb`: Applies preprocessing steps and dimensionality reduction (e.g., PCA) as needed.
-- `10_Model_Tuning_Test.ipynb`: Trains and tunes Random Forest, XGBoost, and NN baselines with temporal splits; outputs metrics and comparison plots.
-- `11_cluster.ipynb`: (Suppliment Task) Performs clustering analyses to visualize and understand feature-space groupings.
+- `1_outlier_loudness.ipynb`: Detects and corrects loudness outliers; adjusts extreme >0 dB values; prepares cleaned loudness data.
+- `2_duplicated.ipynb`: Resolves duplicate rows (rank/title/date) and retains distinct release contexts; outputs de-duplicated dataset.
+- `3_datetime.ipynb`: Converts date strings to `datetime`, ensuring consistent temporal typing for downstream splitting.
+- `4_loudness_normalization.ipynb`: Applies MinMax scaling to loudness after outlier handling; persists normalized column.
+- `5_split_data.ipynb`: Performs temporal train/val/test split; aggregates per-song performance metrics; computes popularity labels; merges unique audio features; saves aggregated datasets.
+- `6_EDA.ipynb`: Extended EDA on aggregated datasets (timing patterns, artist frequencies, feature distributions, correlations, audio feature sanity checks).
+- `7_1_Artist_Collabs_Calcu.ipynb`: Builds artist-level statistics (counts, avg/best rank) and collaborator-derived features from training split.
+- `7_2_Artist_Collabs_Calcu_test.ipynb`: Generates combined train+val lookup artifacts (artist stats, collaborator info, popularity refs) for test evaluation.
+- `8_1_Feature_Engineering.ipynb`: Assembles ML-ready feature tables (audio + reputation + temporal) and unifies lookup merges.
+- `8_2_Feature_Engineering _test.ipynb`: Validates engineered feature schemas across splits; checks integrity before preprocessing/modeling.
+- `9_Preprocessing_D_Reduction.ipynb`: Handles scaling/encoding and applies dimensionality reduction (e.g., PCA) where beneficial.
+- `10_Model_Tuning_Test.ipynb`: Trains/tunes Random Forest, XGBoost, and NN models with temporal splits; compares performance metrics.
+- `11_cluster.ipynb`: Performs clustering to explore feature-space structure and complement EDA findings.
 
 
 ## Notes on Temporal Splitting and Leakage Prevention
@@ -133,3 +132,6 @@ If you encounter version-related differences, try using the exact versions liste
 ---
 
 By following the environment setup, data placement, and run order above, another student or marker should be able to reproduce our reported results end-to-end.
+
+### Filename Note
+The file `8_2_Feature_Engineering _test.ipynb` contains a space before `_test`. It is kept as-is for consistency with the current repository state; you may optionally rename it to `8_2_Feature_Engineering_test.ipynb` and update references if you prefer a uniform naming convention.
