@@ -43,11 +43,11 @@ python -m ipykernel install --user --name spotify-aml --display-name "Python (sp
 ## Data Setup
 Our analysis targets Spotify chart data (2017–2023). The repository currently includes processed CSVs used by the notebooks.
 
-- If starting from raw data, place `Spotify_Dataset_V3.csv` at the repository root (or `data/raw/`) and update notebook paths if needed.
+- If starting from raw data, place `Spotify_Dataset_V3.csv` at the repository root and update notebook paths if needed.
 - If using processed data, ensure the CSVs present in this repo are accessible by the notebooks.
 
 ## How to Run
-1. If starting from raw data, place `Spotify_Dataset_V3.csv` at the repository root (or `data/raw/`).
+1. If starting from raw data, place `Spotify_Dataset_V3.csv` at the repository root.
 2. Run the notebooks in the Run Order below for cleaning, EDA, feature engineering, labeling, dimensionality reduction, clustering, and model training/tuning.
 3. Ensure paths to CSVs in each notebook match your filesystem.
 
