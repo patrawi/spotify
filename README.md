@@ -63,7 +63,7 @@ The notebooks below reflect the actual filenames in this repository (the previou
 7. `7_1_Artist_Collabs_Calcu.ipynb` — Compute artist statistics (song counts, avg/best rank) & collaborator features from training split.
 8. `7_2_Artist_Collabs_Calcu_test.ipynb` — Build train+val lookup artifacts for test evaluation; persist pickles.
 9. `8_1_Feature_Engineering.ipynb` — Assemble ML feature tables (audio + reputation + temporal) and merge lookups.
-10. `8_2_Feature_Engineering _test.ipynb` — Validate engineered features on hold‑out splits; ensure schema consistency.
+10. `8_2_Feature_Engineering_test.ipynb` — Validate engineered features on hold‑out splits; ensure schema consistency.
 11. `9_Preprocessing_D_Reduction.ipynb` — Perform preprocessing (scaling/encoding) and dimensionality reduction (e.g., PCA).
 12. `10_Model_Tuning_Test.ipynb` — Train/tune models (RF, XGBoost, NN) using temporal splits; compare metrics.
 13. `11_cluster.ipynb` — Clustering analyses to explore feature‑space structure and support EDA conclusions.
@@ -97,7 +97,7 @@ If you encounter version-related differences, try using the exact versions liste
 ├── 7_1_Artist_Collabs_Calcu.ipynb
 ├── 7_2_Artist_Collabs_Calcu_test.ipynb
 ├── 8_1_Feature_Engineering.ipynb
-├── 8_2_Feature_Engineering _test.ipynb
+├── 8_2_Feature_Engineering_test.ipynb
 ├── 9_Preprocessing_D_Reduction.ipynb
 ├── 10_Model_Tuning_Test.ipynb
 ├── 11_cluster.ipynb
@@ -113,7 +113,7 @@ If you encounter version-related differences, try using the exact versions liste
 - `7_1_Artist_Collabs_Calcu.ipynb`: Builds artist-level statistics (counts, avg/best rank) and collaborator-derived features from training split.
 - `7_2_Artist_Collabs_Calcu_test.ipynb`: Generates combined train+val lookup artifacts (artist stats, collaborator info, popularity refs) for test evaluation.
 - `8_1_Feature_Engineering.ipynb`: Assembles ML-ready feature tables (audio + reputation + temporal) and unifies lookup merges.
-- `8_2_Feature_Engineering _test.ipynb`: Validates engineered feature schemas across splits; checks integrity before preprocessing/modeling.
+- `8_2_Feature_Engineering_test.ipynb`: Validates engineered feature schemas across splits; checks integrity before preprocessing/modeling.
 - `9_Preprocessing_D_Reduction.ipynb`: Handles scaling/encoding and applies dimensionality reduction (e.g., PCA) where beneficial.
 - `10_Model_Tuning_Test.ipynb`: Trains/tunes Random Forest, XGBoost, and NN models with temporal splits; compares performance metrics.
 - `11_cluster.ipynb`: Performs clustering to explore feature-space structure and complement EDA findings.
@@ -133,5 +133,3 @@ If you encounter version-related differences, try using the exact versions liste
 
 By following the environment setup, data placement, and run order above, another student or marker should be able to reproduce our reported results end-to-end.
 
-### Filename Note
-The file `8_2_Feature_Engineering _test.ipynb` contains a space before `_test`. It is kept as-is for consistency with the current repository state; you may optionally rename it to `8_2_Feature_Engineering_test.ipynb` and update references if you prefer a uniform naming convention.
